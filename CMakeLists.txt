@@ -22,6 +22,7 @@ add_executable(WorldGenerator
         include/Cell.hpp
         include/Map.hpp
         src/Map.cpp
+        include/rendering/SDLRenderer.hpp
 )
 
 target_include_directories(WorldGenerator PRIVATE

@@ -95,7 +95,7 @@ void SDLRenderer::drawMap(const Map& map) {
             float elevation = cell.getElevation();
 
             // Simple elevation-based coloring
-            if (elevation < 0.0f) {
+            if (elevation <= 0.0f) {
                 // Water
                 SDL_SetRenderDrawColor(renderer, 30, 80, 180, 255);
             }

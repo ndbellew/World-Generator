@@ -5,13 +5,13 @@
 int main(int argc, char* argv[]) {
 
     // Create a 256x256 map with default values
-    Map map(256, 256);
+    Map map(1024, 1024);
 
     // Generate mountains using our terrain generator
-    TerrainGenerator::generate(map, 10);
+    TerrainGenerator::generate(map, 12345678);
 
     // Print elevation values to the terminal
-    map.printMap();
+    //map.printMap();
 
     // Create SDL3 renderer
     SDLRenderer renderer(1024, 768);

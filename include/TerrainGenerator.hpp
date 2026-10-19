@@ -18,7 +18,8 @@ private:
       int centerX,
       int centerY,
       float height,
-      float radius
+      float radius,
+      float declineDistance
     );
 
 };

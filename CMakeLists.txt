@@ -9,20 +9,17 @@ find_package(SDL3 REQUIRED CONFIG)
 
 add_executable(WorldGenerator
         src/main.cpp
-
-        src/terrain/TerrainGenerator.cpp
-
         src/rendering/SDLRenderer.cpp
         src/world.cpp
         include/world.h
         include/Cell.hpp
         src/Cell.cpp
-        src/terrain/TerrainGenerator.cpp
-        include/terrain/TerrainGenerator.h
         include/Cell.hpp
         include/Map.hpp
         src/Map.cpp
         include/rendering/SDLRenderer.hpp
+        src/TerrainGenerator.cpp
+        include/TerrainGenerator.hpp
 )
 
 target_include_directories(WorldGenerator PRIVATE

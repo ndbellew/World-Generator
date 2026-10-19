@@ -2,6 +2,9 @@
 // Created by nathanbellew on 10/17/26.
 //
 #include "Map.hpp"
+#include <iostream>
+#include <iomanip>
+#include <ios>
 #include <stdexcept>
 #include <random>
 
@@ -25,25 +28,25 @@ void Map::generate() {
     }
 }
 
-void Map::randomGenerate() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    std::uniform_real_distribution<float> elevationDist(-100.0f, 1000.0f);
-    std::uniform_real_distribution<float> temperatureDist(-20.0f, 40.0f);
-    std::uniform_real_distribution<float> rainfallDist(0.0f, 500.0f);
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            Cell& cell = getCell(x, y);
-
-            cell.setElevation(elevationDist(gen));
-            cell.setTemperature(temperatureDist(gen));
-            cell.setRainfall(rainfallDist(gen));
-            cell.setHasWater(cell.getElevation() < 0.0f);
-        }
-    }
-}
+// void Map::randomGenerate() {
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//
+//     std::uniform_real_distribution<float> elevationDist(-100.0f, 1000.0f);
+//     std::uniform_real_distribution<float> temperatureDist(-20.0f, 40.0f);
+//     std::uniform_real_distribution<float> rainfallDist(0.0f, 500.0f);
+//
+//     for (int y = 0; y < height; y++) {
+//         for (int x = 0; x < width; x++) {
+//             Cell& cell = getCell(x, y);
+//
+//             cell.setElevation(elevationDist(gen));
+//             cell.setTemperature(temperatureDist(gen));
+//             cell.setRainfall(rainfallDist(gen));
+//             cell.setHasWater(cell.getElevation() < 0.0f);
+//         }
+//     }
+// }
 
 // Getters
 int Map::getWidth() const {
@@ -79,4 +82,16 @@ void Map::setHeight(int newHeight) {
 
     height = newHeight;
     generate();
+}
+
+void Map::printMap() const {
+    for (int y=0; y < height; y++) {
+        for (int x=0; x < width; x++) {
+            std::cout << std::setw(10)
+                      << std::fixed
+                      << std::setprecision(2)
+                      << getCell(x,y).getElevation();
+        }
+        std::cout << "\n";
+    }
 }

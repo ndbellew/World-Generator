@@ -9,10 +9,10 @@ void TerrainGenerator::generate(Map& map, unsigned int seed) {
     std::uniform_int_distribution<int> xDist(0, map.getWidth() - 1);
     std::uniform_int_distribution<int> yDist(0, map.getHeight() - 1);
 
-    std::uniform_real_distribution<float> heightDist(300.0f, 8000.00f);
-    std::uniform_real_distribution<float> radiusDist(10.0f, 80.0f);
+    std::uniform_real_distribution<float> heightDist(300.0f, 2000.00f);
+    std::uniform_real_distribution<float> radiusDist(3.0f, 25.0f);
 
-    std::uniform_real_distribution<float> declineDist(1.0f, 800.0f);
+    std::uniform_real_distribution<float> declineDist(.1f, 10.0f);
 
     constexpr int mountainCount = 15;
 

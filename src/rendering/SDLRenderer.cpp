@@ -1,4 +1,4 @@
-#include "rendering/SDLRenderer.hpp"
+#include "SDLRenderer.hpp"
 
 #include <stdexcept>
 
@@ -44,22 +44,59 @@ bool SDLRenderer::initialize() {
 
 // Main application loop
 void SDLRenderer::run(const Map& map) {
-    running = true;
+    this->running = true;
 
     while (running) {
         SDL_Event event;
 
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) {
-                running = false;
-            }
+            switch (event.type) {
+                case SDL_EVENT_QUIT:
+                    this->running = false;
+                    break;
 
-            if (event.type == SDL_EVENT_KEY_DOWN &&
-                event.key.key == SDLK_ESCAPE) {
-                running = false;
+                case SDL_EVENT_KEY_DOWN:
+                    if (event.key.key == SDLK_ESCAPE) {
+                        this->running = false;
+                    }
+                    if (event.key.key == SDLK_R) {
+                        camera.reset();
+                    }
+                    break;
+
+                case SDL_EVENT_MOUSE_BUTTON_DOWN:
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        this->dragging = true;
+                    }
+                    break;
+
+                case SDL_EVENT_MOUSE_BUTTON_UP:
+                    if (event.button.button == SDL_BUTTON_LEFT) {
+                        this->dragging = false;
+                    }
+                    break;
+
+                case SDL_EVENT_MOUSE_MOTION:
+                    if (this->dragging) {
+                        camera.move(event.motion.xrel, event.motion.yrel);
+                    }
+                    break;
+
+                case SDL_EVENT_MOUSE_WHEEL:
+                    if (event.wheel.y != 0.0f) {
+                        float mouseX, mouseY;
+                        SDL_GetMouseState(&mouseX, &mouseY);
+
+                        float factor = event.wheel.y > 0 ? 1.1f : 0.9f;
+
+                        camera.zoomAt(factor, mouseX, mouseY);
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
-
         drawMap(map);
     }
 }
@@ -81,11 +118,7 @@ void SDLRenderer::drawMap(const Map& map) {
         return;
     }
 
-    float cellWidth =
-        static_cast<float>(renderWidth) / map.getWidth();
-
-    float cellHeight =
-        static_cast<float>(renderHeight) / map.getHeight();
+    const float cellSize = baseCellSize * camera.getZoom();
 
     for (int y = 0; y < map.getHeight(); y++) {
         for (int x = 0; x < map.getWidth(); x++) {
@@ -113,12 +146,15 @@ void SDLRenderer::drawMap(const Map& map) {
             }
 
             SDL_FRect rect = {
-                x * cellWidth,
-                y * cellHeight,
-                cellWidth,
-                cellHeight
+                camera.getX() + x * cellSize,
+                camera.getY() + y * cellSize,
+                cellSize,
+                cellSize
             };
-
+            // if (rect.x + rect.w <= 0.0f ||
+            //     rect.y + rect.h <= 0.0f ||
+            //     rect.x >= static_cast<float>(renderWidth) ||
+            //     rect.y >= static_cast<float>(renderHeight))  { continue; }
             SDL_RenderFillRect(renderer, &rect);
         }
     }

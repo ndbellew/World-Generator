@@ -10,17 +10,17 @@ public:
 
     // Generator
     void generate();
-    // void randomGenerate();
+
     // Getters
-    [[nodiscard]] int getWidth() const;
-    [[nodiscard]] int getHeight() const;
+    [[nodiscard]] int getWidth() const { return width; };
+    [[nodiscard]] int getHeight() const { return height; };
 
     Cell& getCell(int x, int y);
     [[nodiscard]] const Cell& getCell(int x, int y) const;
 
     // Setters
-    void setWidth(int width);
-    void setHeight(int height);
+    void setWidth(int Width) { this->width = Width; };
+    void setHeight(int Height) {this->height = Height; };
 
     // Functions
     void printMap() const;

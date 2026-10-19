@@ -9,21 +9,23 @@ find_package(SDL3 REQUIRED CONFIG)
 
 add_executable(WorldGenerator
         src/main.cpp
-        src/rendering/SDLRenderer.cpp
         src/world.cpp
+        src/Cell.cpp
+        src/Map.cpp
+        src/TerrainGenerator.cpp
+        src/rendering/SDLRenderer.cpp
+        src/rendering/Camera2D.cpp
         include/world.h
         include/Cell.hpp
-        src/Cell.cpp
-        include/Cell.hpp
         include/Map.hpp
-        src/Map.cpp
-        include/rendering/SDLRenderer.hpp
-        src/TerrainGenerator.cpp
         include/TerrainGenerator.hpp
+        include/rendering/SDLRenderer.hpp
+        include/rendering/Camera2D.hpp
 )
 
 target_include_directories(WorldGenerator PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/rendering
 )
 
 target_link_libraries(WorldGenerator PRIVATE

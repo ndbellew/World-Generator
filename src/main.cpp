@@ -5,10 +5,10 @@
 int main(int argc, char* argv[]) {
 
     // Create a 256x256 map with default values
-    Map map(1024, 1024);
+    Map map(2048, 1024);
 
     // Generate mountains using our terrain generator
-    TerrainGenerator::generate(map, 12345678);
+    TerrainGenerator::generate(map, 123456789);
 
     // Print elevation values to the terminal
     //map.printMap();

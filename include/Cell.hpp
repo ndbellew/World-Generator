@@ -20,23 +20,20 @@ public:
     Cell() = default;
 
     // Getters
-    [[nodiscard]] float getElevation() const;
-    [[nodiscard]] float getTemperature() const;
-    [[nodiscard]] float getRainfall() const;
-    [[nodiscard]] bool getHasWater() const;
+    [[nodiscard]] float getElevation() const {return this->elevation;};
+    [[nodiscard]] float getTemperature() const {return this->temperature;};
+    [[nodiscard]] float getRainfall() const {return this->rainfall;};
+    [[nodiscard]] bool getHasWater() const {return this->hasWater;};
 
     // Setters
-    void setElevation(float Elevation);
-    void setTemperature(float Temperature);
-    void setRainfall(float Rainfall);
-    void setHasWater(bool HasWater);
-
+    void setElevation(float Elevation) { this->elevation = Elevation;};
+    void setTemperature(float Temperature) { this->temperature = Temperature;};
+    void setRainfall(float Rainfall) { this->rainfall = Rainfall;};
+    void setHasWater(bool HasWater) { this->hasWater = HasWater;};
 
 private:
     float elevation = 0.0f;
     float temperature = 20.0f;
     float rainfall = 0.0f;
     bool hasWater = false;
-
-
 };
